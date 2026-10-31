@@ -1,3 +1,4 @@
+python
 import asyncio
 import os
 import sys
@@ -72,8 +73,8 @@ def _looks_like_hex_blob(text: str) -> bool:
     s = str(text).strip()
     if not s or not re.fullmatch(r"[0-9a-fA-F\s]+", s):
         return False
-    cleaned = re.sub(r"\s+", "", s)
-    return len(cleaned) >= 2 and (len(cleaned) % 2) == 0
+    s_cleaned = re.sub(r"\s+", "", s)
+    return len(s_cleaned) >= 2 and (len(s_cleaned) % 2) == 0
    
 def load_local_patch(filepath):
     try:
@@ -84,7 +85,6 @@ def load_local_patch(filepath):
         print(f"[LOAD ERROR] {filepath}: {e}")
         return None
 
-# Encapsulado dentro de uma classe Addon para compatibilidade programática estável
 class RenderProxyMaster:
     def request(self, flow: http.HTTPFlow):
         url = flow.request.pretty_url
@@ -218,7 +218,9 @@ class RenderProxyMaster:
                     AddGameVar("FreeMoveAngularSpeedStand", "float", ความเร็วการหมุนตัว)
                     AddGameVar("FreeMoveAngularSpeedCrouch", "float", ความเร็วการหมุนตัว)
                     AddGameVar("FreeMoveAngularSpeedCreep", "float", ความเร็วการหมุนตัว)
-AddGameVar("FreeMoveAngularSpeedKnockDown", "float", ความเร็วการหมุนตัว)
+                    AddGameVar("FreeMoveAngularSpeedKnockDown", "float", ความเร็วการหมุนตัว)
+            
+
 AddGameVar("CanReloadContinueShoot", "bool", True)
 AddGameVar("LessIsMoreMinReloadInterval", "uint32", 1)
 AddGameVar("LessIsMorePendingReloadInterval", "uint32", 1)
@@ -261,6 +263,7 @@ AddGameVar("CarCrashDamageScaleWhenHitWall", "float", 0)
 AddGameVar("StropFallingDamageMax", "int32", 0)
 AddGameVar("EnableVibrateFeature", "bool", True)
 AddGameVar("ObserverCanThumbUp", "bool", True)
+初หมุน = True
 AddGameVar("CanSwimSurfing", "bool", True)
 AddGameVar("ShowHighFrameRateSetting", "bool", True)
 AddGameVar("InGameFrameSetting", "bool", True)
@@ -352,12 +355,10 @@ body = body.encode("utf-8")
 flow.response = http.Response.make(response.status_code, body, {"Content-Type": response.headers.get("Content-Type", "application/json")})
 except Exception as e:
 flow.response = http.Response.make(502, b'{"error":"upstream request failed"}', {"Content-Type": "application/json"})
-Registro explícito para o Mitmproxy ler programaticamente
 addons = [
 RenderProxyMaster()
 ]
 if name == "main":
-# Vincula o mitmdump diretamente na porta obrigatória fornecida pela Render ($PORT)
 port = os.environ.get("PORT", "10000")
 print(f"==> Iniciando o Mitmproxy de Produção na porta {port}...")
 try:
