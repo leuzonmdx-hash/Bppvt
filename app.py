@@ -218,7 +218,6 @@ class RenderProxyMaster:
                     AddGameVar("FreeMoveAngularSpeedStand", "float", ความเร็วการหมุนตัว)
                     AddGameVar("FreeMoveAngularSpeedCrouch", "float", ความเร็วการหมุนตัว)
                     AddGameVar("FreeMoveAngularSpeedCreep", "float", ความเร็วการหมุนตัว)
-Use o código com cuidado.
 AddGameVar("FreeMoveAngularSpeedKnockDown", "float", ความเร็วการหมุนตัว)
 AddGameVar("CanReloadContinueShoot", "bool", True)
 AddGameVar("LessIsMoreMinReloadInterval", "uint32", 1)
